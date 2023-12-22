@@ -17,4 +17,4 @@ Route::get('/',[ProductController::class,'products'])->name('dashboard');
 Route::post('/add-product',[ProductController::class,'addProduct'])->name('add.product');
 Route::get('/edit-product/{id}',[ProductController::class,'edit'])->name('edit.product');
 Route::post('/update-product/{id}',[ProductController::class,'update'])->name('update.product');
-Route::post('/delete-product/{id}',[ProductController::class,'destroy'])->name('delete.product');
+Route::delete('/delete-product/{id}',[ProductController::class,'delete'])->name('delete.product');

@@ -197,7 +197,7 @@
                                                     data-product-image="{{$dataa->image}}"
                                                     data-product-info="{{$dataa->info}}"
                                                     data-product-expiredate="{{$dataa->expiredate}}"></i>
-                                            <i class="fa fa-trash deleteProduct" data-product-id="{{$dataa->id}}" style="font-size:20px"></i></td>
+                                         <a href="" class="btn btn-danger deleteProduct" data-product-id="{{$dataa->id}}">   <i class="fa fa-trash" style="font-size:20px"></i></a></td>
                                         </tr>
                                       @endforeach
                                         
@@ -337,7 +337,8 @@ $('#previewImage').attr('src', "{{ asset('product') }}/" + productImage);
                       
 
                       $('#updateProductform')[0].reset();
-                       $(".table").load(location.href + ".table")
+                       $('#updateModal').modal('hide');
+                       $(".table").load(location.href + " .table");
                      }
                  },
                  error: function(err) {
@@ -352,22 +353,24 @@ $('#previewImage').attr('src', "{{ asset('product') }}/" + productImage);
          });
 
 
-         $('.deleteProduct').click(function() {
+         $(document).on('click','.deleteProduct',function() {
         // Get the product ID from the data-product-id attribute
-        var id = $(this).data('product-id');
+        
 
         // Confirm with the user before proceeding with the delete
         if (confirm('Are you sure you want to delete this product?')) {
             // Send AJAX request to delete the product
             $.ajax({
-                url: "{{ route('delete.product','')}}/" + id,
-                type: 'POST',
+                url: "{{ route('delete.product','')}}/" + $(this).data('product-id'),
+                type: 'DELETE',
                 success: function(response) {
                     if (response.status == "success") {
                         // Optionally, update the UI or perform other actions on success
                         alert('Product deleted successfully!');
                         // Reload or update the product list
-                        $(".table").load(location.href + " .table");
+
+                        // Remove the deleted row from the DOM
+                    $(".table").load(location.href + " .table");
                     } else {
                         alert('Failed to delete product.');
                     }

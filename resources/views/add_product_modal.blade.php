@@ -105,10 +105,10 @@
                 contentType: false,
                 success: function(response) {
                     if(response.status == "success"){          
-                      $('#myModal').modal('hide');
+                      $('#staticBackdrop').modal('hide');
 
                      $('#addProductform')[0].reset();
-                      $(".table").load(location.href + ".table")
+                      $(".table").load(location.href + " .table");
                     }
                 },
                 error: function(err) {

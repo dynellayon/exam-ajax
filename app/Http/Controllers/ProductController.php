@@ -70,14 +70,14 @@ public function update(Request $request, $id)
         
           $product->update($data);
           return response()->json([
-                     'status'=>'successfully updated',
+                     'status'=>'success',
              ]);
     }
 
 
     public function validateUpdate($request,$id){
         return  $this->validate($request,[
-            'name'=> 'required|unique:product|max:255'.$id,
+            'name'=> 'required',
                 'price'=> 'required',
                 'availability'=> 'required',
                 
@@ -86,18 +86,18 @@ public function update(Request $request, $id)
 
        ]);
     }
-     public function destroy($id)
+     public function delete($id)
     {
       
        $product = Product::find($id);
        $prodDelete = $product->delete();
        if($prodDelete){
         unlink(public_path('product/'.$product->image));
-
-       }
-
-        return response()->json([
+return response()->json([
                      'status'=>'success',
              ]);
+       }
+
+        
 }
 }
